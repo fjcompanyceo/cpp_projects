@@ -9,7 +9,7 @@ class vector {
     public: 
 
         typedef T val_type;
-        vector(int n=1) : data(new T[n]), capacity(0), length(0) {}
+        vector(int n=1) : data(new T[n]), capacity(1), length(0) {}
 
         void push(T input){
             if (capacity <= length){
@@ -34,6 +34,16 @@ class vector {
             return;
         }
         int size() { return length;}
+
+        void swap(int idx1, int idx2) {
+            T temp;
+            temp = data[idx2];
+            data[idx2] = data[idx1];
+            data[idx1] = temp;
+        }
+        int* showdata() {
+            return data;
+        }
 
         T operator[] (int i) { return data[i];}
 
@@ -94,6 +104,40 @@ class vector<bool> {
         }
         
 };
+template<typename M>
+int partition(M& inarr, int lidx, int hidx){
+
+    int swidx = lidx-1;
+    for(int i=lidx; i<hidx; i++){
+        if(inarr[i] < inarr[hidx]){
+            swidx++;
+            inarr.swap(swidx,i);
+        }
+        else {
+            continue;
+        }
+    }
+    swidx++;
+    inarr.swap(swidx,hidx);
+    return swidx;
+}
+
+template<typename M>
+void quicksort(M& input_arr, int lidx, int hidx){
+    if(lidx < 0 || hidx >= input_arr.size() || hidx <= lidx){
+        return;
+    }
+    
+    if(lidx >= input_arr.size()-1){
+        return;
+    }
+    int sp = partition(input_arr, lidx, hidx);
+    
+    quicksort(input_arr, lidx, sp-1);
+    quicksort(input_arr,sp+1, hidx);
+
+}
+
 
 int main() {
     vector<bool> arr;
@@ -117,5 +161,22 @@ int main() {
     }
     std::cout << std::endl;
     std::cout << "print finished" << std::endl;
+
+    vector<int> arr2;
+    arr2.push(10);
+    arr2.push(20);
+    arr2.push(80);
+    arr2.push(90);
+    arr2.push(30);
+    arr2.push(40);
+    arr2.push(40);
+    arr2.push(85);
+    arr2.push(50);
+    //quicksort(arr2, 0, arr2.size() - 1);
+    quicksort(arr2, 0, arr2.size()-1);
+    for(int i=0;i<arr2.size();i++){
+        std::cout << arr2[i] << std::endl;
+    }
+
     return 0;
 }
