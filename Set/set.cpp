@@ -30,10 +30,7 @@ class Todo {
 };
 
 std::ostream & operator<< (std::ostream & o, const Todo& in){
-    o << "priority:" << in.priority << std::endl;
-    o << "job desc:" << in.job_desc << std::endl;
-    o << std::endl;
-
+    o << "priority:" << in.priority << "job desc:" << in.job_desc << std::endl;
     return o;
 }
 
@@ -47,4 +44,10 @@ int main() {
     todos.insert(Todo(3,"bc"));
 
     print_set(todos);
+    todos.erase(todos.find(Todo(1,"abc")));
+
+    std::cout << "====================== print changed result ======================= \n" << std::endl;
+    print_set(todos);
+
+    return 0;
 }
