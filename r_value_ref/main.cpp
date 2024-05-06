@@ -17,8 +17,21 @@ Autoptr<Resource> generateResource(){
 int main () {
     auto start = std::chrono::high_resolution_clock::now();
 
-    Autoptr<Resource> main_res;
-    main_res = generateResource();
+    Autoptr<Resource> res1; 
+    res1 =  generateResource();
+
+    std::cout << res1.m_ptr << std::endl;
+
+    //Autoptr<Resource> res = res1; //copy constructor
+    Autoptr<Resource> res2 = std::move(res1); //move constructor
+
+    std::cout << res1.m_ptr << std::endl;
+    std::cout << res2.m_ptr << std::endl;
+
+    // Autoptr<Resource> res1(new Resource(10000000));
+    // res1->setAll(3);
+
+
 
     auto end = std::chrono::high_resolution_clock::now();
 

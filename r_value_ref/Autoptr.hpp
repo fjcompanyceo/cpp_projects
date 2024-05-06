@@ -4,9 +4,10 @@ template<class T>
 class Autoptr {
 
 private:
-    T* m_ptr;
 
 public:
+
+    T* m_ptr;
     Autoptr(T* ptr = nullptr) : m_ptr(ptr){
         std::cout << "Autoptr default constructor" << std::endl;
     }
@@ -26,19 +27,22 @@ public:
         *m_ptr = *a.m_ptr;
         return *this;
     } 
-    // Autoptr(Autoptr&& a) : m_ptr(a.m_ptr) {
-    //     a.m_ptr = nullptr; 
-    //     std::cout << "Autoptr move constructor" << std::endl;
-    // }
+    Autoptr(Autoptr&& a) : m_ptr(a.m_ptr) {
+        a.m_ptr = nullptr; 
+        std::cout << "Autoptr move constructor" << std::endl;
+    }
+    Autoptr& operator = (Autoptr&& a) {
+        std::cout << "Autoptr move assignment" << std::endl;
+        if (&a == this) {
+            return *this;
+        }
+        if (m_ptr != nullptr) delete m_ptr;
+        m_ptr = a.m_ptr;
+        a.m_ptr = nullptr;
+        return *this;
+    }
+    //Autoptr(const Autoptr& a) = delete;
+    //Autoptr& operator=(const AutoPtr& a) = delete;
 
-    // Autoptr& operator = (Autoptr&& a) {
-    //     std::cout << "Autoptr move assignment" << std::endl;
-    //     if (&a == this) {
-    //         return *this;
-    //     }
-    //     if (!m_ptr) delete m_ptr;
-    //     a.m_ptr = nullptr;
-    //     return *this;
-    // }
 
 };
