@@ -41,8 +41,9 @@ public:
         a.m_ptr = nullptr;
         return *this;
     }
+    T* operator ->() {
+        return m_ptr;
+    }
     //Autoptr(const Autoptr& a) = delete;
     //Autoptr& operator=(const AutoPtr& a) = delete;
-
-
 };

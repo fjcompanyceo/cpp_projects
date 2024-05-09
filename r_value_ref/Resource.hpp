@@ -48,4 +48,15 @@ public:
         }
         return *this;
     }
+    void setall(const int& val) {
+        for(int i=0; i<m_length; i++){
+            m_data[i] = val;
+        }
+    }
+    void showall() {
+        for(int i=0; i<m_length; i++) {
+            std::cout << m_data[i] << ' ';
+        }
+        std::cout << std::endl;
+    }
 };
